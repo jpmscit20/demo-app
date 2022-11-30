@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  test-app:
+    image: test-app:1
+    ports:
+      - 80:80
+    networks:
+      - testapp
+  node-test-app:
+    image: node-test-app:1
+    ports:
+      - 3006:3006
+    networks:
+      - testapp
+  postgres:
+    image: postgres
+    environment:
+      - "POSTGRES_PASSWORD=dmap"
+    volumes:
+      - type: volume
+        source: pgdata
+        target: /var/lib/postgresql/data
+    networks:
+      - testapp
+networks:
+  testapp:
+volumes:
+  pgdata:
